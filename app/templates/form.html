@@ -1,21 +1,16 @@
-<!DOCTYPE html>
 
-<html>
-  <head>
-    <title>Flask App - {{title}}</title>  
-  </head>
+{% extends "layout.html" %}
+
+{% block content %}
+  <h1>Question {{field_num}}</h1>
+  <form action="" method="post" novalidate>
+      {{ form.hidden_tag() }}
+      <p>
+          {{ form.field1.label }}<br>
+          {{ form.field1(size=32) }}
+      </p>
+
   
-  <body>
-    <h1>Sign In</h1>
-    <form action="" method="post" novalidate>
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.field1.label }}<br>
-            {{ form.field1(size=32) }}
-        </p>
-
-     
-        <p>{{ form.submit() }}</p>
-    </form>
-  </body>
-</html>
+      <p>{{ form.submit() }}</p>
+  </form>
+{% endblock %}

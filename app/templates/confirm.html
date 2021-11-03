@@ -1,0 +1,10 @@
+
+{% extends "layout.html" %}
+
+{% block content %}
+    {% for key, value in dict.items() %}
+    <p>{{key}} : {{value}}</p>
+    {% endfor %}
+{% endblock %}
+    
+
