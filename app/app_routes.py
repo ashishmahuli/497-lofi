@@ -4,18 +4,25 @@ from app.form import LoginForm
 from wtforms.fields.core import Label
 from fillpdf import fillpdfs
 
-# Helper functions for managing inputed field data in session object
+# Helper functions managing field data in session
 def get_fields():
     if "fields" in session:
         return session["fields"]
     else:
         return {}
 
-def set_field(field_num, val):
+def get_field(question):
+    fields = get_fields()
+    if question in fields:
+        return fields[question]
+    else:
+        return None
+
+def set_field(question, val):
     if "fields" not in session:
         session["fields"] = {}
         
-    session["fields"][field_num] = val
+    session["fields"][question] = val
     session.modified = True
 
 
@@ -30,15 +37,21 @@ def home():
 @app.route('/test-form/<field_num>', methods=['GET', 'POST'])
 def ask_question(field_num):
     
+    my_list = list(range(0,30))
+
     form = LoginForm()
     question = questions[int(field_num)]
     form.field1.label = Label("post", question)
+    
     if form.validate_on_submit():
 
         set_field(question, form.field1.data)
         return redirect('/test-form/' + str(int(field_num) + 1))
 
-    return render_template('form.html', field_num = field_num, form=form)
+    if get_field(question) is not None:
+        form.field1.data = get_field(question)
+    return render_template('form.html', field_num = field_num, form=form, my_list = my_list)
+
 
 # Route for showing user the fields they have filled
 @app.route('/confirm')
