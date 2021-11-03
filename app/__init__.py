@@ -11,6 +11,4 @@ def generate_questions():
 
 questions = generate_questions()
 
-
-
 from app import app_routes

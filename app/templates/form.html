@@ -2,18 +2,14 @@
 {% extends "layout.html" %}
 
 {% block content %}
-
-TODO ASHISH: Add links to each question
+  <p> Links to Each Questions</p>
   {% for item in my_list %}
-    {{item}}
+    <a  href= "{{ url_for('ask_question', field_num =item )}}">{{item}}</a>
   {% endfor %}
-
   <br>
   <br>
-  
 
   <h1>Question {{field_num}}</h1>
-
 
   <form action="" method="post" novalidate>
       {{ form.hidden_tag() }}
@@ -21,8 +17,6 @@ TODO ASHISH: Add links to each question
           {{ form.field1.label }}<br>
           {{ form.field1(size=32) }}
       </p>
-
-  
       <p>{{ form.submit() }}</p>
   </form>
 {% endblock %}
